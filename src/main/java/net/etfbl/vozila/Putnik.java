@@ -1,4 +1,4 @@
-package net.etfbl.pj2;
+package net.etfbl.vozila;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.Random;

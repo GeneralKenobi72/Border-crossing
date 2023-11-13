@@ -1,7 +1,10 @@
-/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/pj2/Kofer.java
-/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/pj2/LicnoVozilo.java
-/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/pj2/Kamion.java
-/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/pj2/Putnik.java
-/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/pj2/Autobus.java
-/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/pj2/Vozilo.java
-/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/pj2/Simulacija.java
+/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/terminali/CarinskiTerminal.java
+/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/vozila/Autobus.java
+/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/vozila/Vozilo.java
+/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/vozila/Kofer.java
+/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/terminali/Terminal.java
+/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/vozila/Kamion.java
+/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/terminali/PolicijskiTerminal.java
+/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/projektni/Simulacija.java
+/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/vozila/LicnoVozilo.java
+/home/kenobi/Fakultet/Programski-jezici-2/Projektni-zadatak/Granicni-prelaz/src/main/java/net/etfbl/vozila/Putnik.java

@@ -1,4 +1,7 @@
-package net.etfbl.pj2;
+package net.etfbl.projektni;
+
+import net.etfbl.vozila.*;
+import net.etfbl.terminali.*;
 import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;

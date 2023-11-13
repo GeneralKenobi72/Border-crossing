@@ -1,4 +1,4 @@
-package net.etfbl.pj2;
+package net.etfbl.vozila;
 
 public class Kofer {
 	private Putnik pripadaPutniku;

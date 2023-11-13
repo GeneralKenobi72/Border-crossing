@@ -1,4 +1,6 @@
-package net.etfbl.pj2;
+package net.etfbl.vozila;
+
+import net.etfbl.projektni.*;
 import java.util.Random;
 
 public class Kamion extends Vozilo {
