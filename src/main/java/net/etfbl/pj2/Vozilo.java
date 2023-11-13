@@ -6,6 +6,9 @@ import java.util.ArrayList;
 public abstract class Vozilo extends Thread implements Serializable{
 	private int brojPutnika;
 	private ArrayList<Putnik> putnici;
+	private int redVozila;
+
+	public static ArrayList<Object> red = Simulacija.red;
 
 	public Vozilo(int maksimalanBroj) {
 		Random rand = new Random();
@@ -25,17 +28,44 @@ public abstract class Vozilo extends Thread implements Serializable{
 		return brojPutnika;
 	}
 
+	public int getRedVozila() {
+		return redVozila;
+	}
+
+	public void setRed(int red) {
+		this.redVozila = red;
+	}
+
 	public void setBrojPutnika(int brojPutnika) {
 		this.brojPutnika = brojPutnika;
 	}
 
 	@Override
 	public String toString() { //TODO: nezavrseno
-		return "broj putnika= " + brojPutnika;
+		return "broj putnika=" + brojPutnika;
 	}
 
 	@Override
-	public void run() { //TODO: nedostaje implementacija
-		return;
+	public void run() {
+		try {
+			sleep(1000);
+			synchronized(red) {
+				while(!red.isEmpty()) {
+					redVozila = red.indexOf(this);
+
+					if(redVozila == 0) {
+						System.out.println("Zavrsen " + this);
+						red.remove(0);
+						red.notifyAll();
+						return;
+					} else {
+						red.wait();
+					}
+				}
+				red.notifyAll();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

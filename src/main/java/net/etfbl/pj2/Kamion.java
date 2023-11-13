@@ -6,8 +6,8 @@ public class Kamion extends Vozilo {
 	private int deklarisanaMasaTereta;
 	private int stvarnaMasaTereta;
 
-	public Kamion(int maksimalanKapacitet) {
-		super(maksimalanKapacitet);
+	public Kamion() {
+		super(Simulacija.MAX_BROJ_PUTNIKA_KAMIONA);
 		Random rand = new Random();
 		potrebnaCarinskaDokumentacija = rand.nextBoolean();
 		deklarisanaMasaTereta = rand.nextInt(10000) + 10000;
@@ -45,6 +45,6 @@ public class Kamion extends Vozilo {
 
 	@Override
 	public String toString() {
-		return "Kamion{" + super.toString() + ", stvarna masa tereta= " + stvarnaMasaTereta + ", deklarisana masa tereta=" + deklarisanaMasaTereta + ", potrebna carinska dokumentacija=" + potrebnaCarinskaDokumentacija + "}";
+		return "Kamion{" + super.toString() + ", deklarisana masa tereta=" + deklarisanaMasaTereta + ", stvarna masa tereta=" + stvarnaMasaTereta + ", potrebna carinska dokumentacija=" + potrebnaCarinskaDokumentacija + ", red=" + getRedVozila() + "}";
 	}
 }

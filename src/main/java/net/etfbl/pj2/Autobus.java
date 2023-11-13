@@ -6,8 +6,8 @@ public class Autobus extends Vozilo {
 
 	private ArrayList<Kofer> koferi;
 
-	public Autobus(int maksimalanKapacitet) {
-		super(maksimalanKapacitet);
+	public Autobus() {
+		super(Simulacija.MAX_BROJ_PUTNIKA_AUTOBUSA);
 		Random rand = new Random();
 		koferi = new ArrayList<>();
 		for(int i=0;i<getBrojPutnika();i++){
@@ -33,6 +33,6 @@ public class Autobus extends Vozilo {
 
 	@Override
 	public String toString() {
-		return "Autobus{" + super.toString() + ", broj kofera: " + koferi.size() + "}";
+		return "Autobus{" + super.toString() + ", broj kofera=" + koferi.size() + " red=" + getRedVozila() + "}";
 	}
 }
