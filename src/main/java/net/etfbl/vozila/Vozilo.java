@@ -1,6 +1,7 @@
 package net.etfbl.vozila;
 
 import net.etfbl.projektni.*;
+import net.etfbl.terminali.*;
 import java.util.Random;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,8 +10,10 @@ public abstract class Vozilo extends Thread implements Serializable{
 	private int brojPutnika;
 	private ArrayList<Putnik> putnici;
 	private int redVozila;
+	private boolean prosaoPolicijskiTerminal = false;
+	private boolean prosaoCarinskiTerminal = false;
 
-	public static ArrayList<Object> red = Simulacija.red;
+	public static boolean cond_wait = true;
 
 	public Vozilo(int maksimalanBroj) {
 		Random rand = new Random();
@@ -20,6 +23,14 @@ public abstract class Vozilo extends Thread implements Serializable{
 			Putnik p = new Putnik("A"); //TODO: treba promijeniti
 			putnici.add(p);
 		}
+	}
+
+	public boolean getProsaoCarinskiTerminal() {
+		return prosaoCarinskiTerminal;
+	}
+
+	public boolean getProsaoPolicijskiTerminal() {
+		return prosaoPolicijskiTerminal;
 	}
 
 	public Putnik getPutnik(int i) {
@@ -34,8 +45,8 @@ public abstract class Vozilo extends Thread implements Serializable{
 		return redVozila;
 	}
 
-	public void setRed(int red) {
-		this.redVozila = red;
+	public void setRedVozila(int red) {
+		redVozila = red;
 	}
 
 	public void setBrojPutnika(int brojPutnika) {
@@ -51,23 +62,90 @@ public abstract class Vozilo extends Thread implements Serializable{
 	public void run() {
 		try {
 			sleep(1000);
-			synchronized(red) {
-				while(!red.isEmpty()) {
-					redVozila = red.indexOf(this);
-
-					if(redVozila == 0) {
-						System.out.println("Zavrsen " + this);
-						red.remove(0);
-						red.notifyAll();
-						return;
-					} else {
-						red.wait();
-					}
+			while(!Simulacija.red.isEmpty()) {
+				if(Simulacija.red.indexOf(this) == 0) {
+					while(!prosaoPolicijskiTerminal)
+						naPolicijskiTerminal();
+					System.out.println("Zavrsen " + this);
+					return;
 				}
-				red.notifyAll();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
+	public void naPolicijskiTerminal() {
+		if(this instanceof KoristiMaliTerminalInterface && !Simulacija.pt1.getZauzet() && Simulacija.pt1.getRadi() && Simulacija.pt1.sem.tryAcquire()) {
+			try {
+				Simulacija.pt1.setZauzet(true);
+				Simulacija.red.remove(this);
+				posaljiVoziloNaPolicijskiTerminal(Simulacija.pt1);
+				while(!prosaoCarinskiTerminal) {
+					naCarinskiTerminal(Simulacija.pt1);
+				}
+				prosaoPolicijskiTerminal = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(this instanceof KoristiMaliTerminalInterface && !Simulacija.pt2.getZauzet() && Simulacija.pt2.getRadi() && Simulacija.pt2.sem.tryAcquire()) {
+			try {
+				Simulacija.pt2.setZauzet(true);
+				Simulacija.red.remove(this);
+				posaljiVoziloNaPolicijskiTerminal(Simulacija.pt2);
+				while(!prosaoCarinskiTerminal) {
+					naCarinskiTerminal(Simulacija.pt2);
+				}
+				prosaoPolicijskiTerminal = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(this instanceof KoristiVelikiTerminalInterface && !Simulacija.pt3.getZauzet() && Simulacija.pt3.getRadi() && Simulacija.pt3.sem.tryAcquire()) {
+			try {
+				Simulacija.pt3.setZauzet(true);
+				Simulacija.red.remove(this);
+				posaljiVoziloNaPolicijskiTerminal(Simulacija.pt3);
+				while(!prosaoCarinskiTerminal) {
+					naCarinskiTerminal(Simulacija.pt3);
+				}
+				prosaoPolicijskiTerminal = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		}
+	}
+
+	public void naCarinskiTerminal(PolicijskiTerminal pt) {
+		if(this instanceof KoristiMaliTerminalInterface && !Simulacija.ct1.getZauzet() && Simulacija.ct1.getRadi() && Simulacija.ct1.sem.tryAcquire()) {
+			try {
+				Simulacija.ct1.setZauzet(true);
+				pt.setZauzet(false);
+				pt.sem.release();
+				posaljiVoziloNaCarinskiTerminal(Simulacija.ct1);
+				Simulacija.ct1.sem.release();
+				Simulacija.ct1.setZauzet(false);
+				prosaoCarinskiTerminal = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		}
+		else if(this instanceof KoristiVelikiTerminalInterface && !Simulacija.ct2.getZauzet() && Simulacija.ct2.getRadi() && Simulacija.ct2.sem.tryAcquire()) {
+			try {
+				Simulacija.ct2.setZauzet(true);
+				pt.setZauzet(false);
+				pt.sem.release();
+				posaljiVoziloNaCarinskiTerminal(Simulacija.ct2);
+				Simulacija.ct2.sem.release();
+				Simulacija.ct2.setZauzet(false);
+				prosaoCarinskiTerminal = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		}
+	}
+
+	abstract void posaljiVoziloNaCarinskiTerminal(CarinskiTerminal ct);
+	abstract void posaljiVoziloNaPolicijskiTerminal(PolicijskiTerminal pt);
 }

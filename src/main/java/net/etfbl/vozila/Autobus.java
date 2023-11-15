@@ -1,10 +1,11 @@
 package net.etfbl.vozila;
 
 import net.etfbl.projektni.*;
+import net.etfbl.terminali.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Autobus extends Vozilo {
+public class Autobus extends Vozilo implements KoristiMaliTerminalInterface {
 
 	private ArrayList<Kofer> koferi;
 
@@ -31,6 +32,16 @@ public class Autobus extends Vozilo {
 
 	public int getBrojKofera() {
 		return koferi.size();
+	}
+
+	@Override
+	void posaljiVoziloNaPolicijskiTerminal(PolicijskiTerminal pt) {
+		pt.obradiVozilo(this);
+	}
+
+	@Override
+	void posaljiVoziloNaCarinskiTerminal(CarinskiTerminal ct) {
+		ct.obradiVozilo(this);
 	}
 
 	@Override

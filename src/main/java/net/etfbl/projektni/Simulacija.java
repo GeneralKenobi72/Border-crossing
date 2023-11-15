@@ -13,14 +13,20 @@ public class Simulacija {
 	public static final int MAX_BROJ_PUTNIKA_AUTOBUSA = 52;
 	public static final int MAX_BROJ_PUTNIKA_LICNOG_VOZILA = 5;
 
-	public static final ArrayList<Object> red = new ArrayList<>();
-	private static ArrayList<Object> listaVozila = new ArrayList<>();
+	public static CarinskiTerminal ct1 = new CarinskiTerminal("ct1");
+	public static CarinskiTerminal ct2 = new CarinskiTerminal("ct2");
+	public static PolicijskiTerminal pt1 = new PolicijskiTerminal("pt1");
+	public static PolicijskiTerminal pt2 = new PolicijskiTerminal("pt2");
+	public static PolicijskiTerminal pt3 = new PolicijskiTerminal("pt3");
+
+	public static final ArrayList<Vozilo> red = new ArrayList<>();
+	private static ArrayList<Vozilo> listaVozila = new ArrayList<>();
 
 	public static void main(String[] args) {
 		kreirajRed();
 		for(int i=0;i<red.size();i++)
 			System.out.println(red.get(i));
-		for(int i=0;i<listaVozila.size();i++){
+		for(int i=listaVozila.size()-1;i>=0;i--){
 			Vozilo v = (Vozilo)red.get(i);
 			v.start();
 		}
@@ -54,7 +60,7 @@ public class Simulacija {
 		i = 0;
 		for(Iterator<Object> iter = list.iterator();iter.hasNext();) {
 			Vozilo v = (Vozilo)iter.next();
-			v.setRed(i);
+			v.setRedVozila(i);
 			listaVozila.add(v);
 			red.add(v);
 			i++;

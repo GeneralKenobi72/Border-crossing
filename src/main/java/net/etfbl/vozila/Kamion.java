@@ -1,9 +1,10 @@
 package net.etfbl.vozila;
 
+import net.etfbl.terminali.*;
 import net.etfbl.projektni.*;
 import java.util.Random;
 
-public class Kamion extends Vozilo {
+public class Kamion extends Vozilo implements KoristiVelikiTerminalInterface {
 	private boolean potrebnaCarinskaDokumentacija;
 	private int deklarisanaMasaTereta;
 	private int stvarnaMasaTereta;
@@ -43,6 +44,16 @@ public class Kamion extends Vozilo {
 
 	public void setStvarnaMasaTereta(int stvarna) {
 		stvarnaMasaTereta = stvarna;
+	}
+
+	@Override
+	void posaljiVoziloNaPolicijskiTerminal(PolicijskiTerminal pt) {
+		pt.obradiVozilo(this);
+	}
+
+	@Override
+	void posaljiVoziloNaCarinskiTerminal(CarinskiTerminal ct) {
+		ct.obradiVozilo(this);
 	}
 
 	@Override
