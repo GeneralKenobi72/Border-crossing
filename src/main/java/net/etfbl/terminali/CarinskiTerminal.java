@@ -10,7 +10,7 @@ public class CarinskiTerminal extends Terminal {
 	@Override
 	public void obradiVozilo(Kamion v) {
 		try {
-			Thread.sleep(100);
+			Thread.sleep(2000);
 			System.out.println("Obradjen na carinskom terminalu: " + v);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -19,7 +19,7 @@ public class CarinskiTerminal extends Terminal {
 	@Override
 	public void obradiVozilo(Autobus v) {
 		try {
-			Thread.sleep(100);
+			Thread.sleep(2000);
 			System.out.println("Obradjen na carinskom terminalu: " + v);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -28,7 +28,7 @@ public class CarinskiTerminal extends Terminal {
 	@Override
 	public void obradiVozilo(LicnoVozilo v) {
 		try {
-			Thread.sleep(100);
+			Thread.sleep(2000);
 			System.out.println("Obradjen na carinskom terminalu: " + v);
 		} catch (Exception e) {
 			e.printStackTrace();
