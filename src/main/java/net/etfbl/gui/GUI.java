@@ -1,5 +1,6 @@
 package net.etfbl.gui;
 
+import java.io.*;
 import javafx.geometry.*;
 import javafx.collections.ObservableList;
 import java.util.List;
@@ -23,6 +24,12 @@ public class GUI {
 
 	@FXML
     private GridPane GridOstalaVozila;
+
+	@FXML
+    private GridPane GridIzdvojenaVozila;
+
+	private static int izdvojenaVozilaCol = 0;
+	private static int izdvojenaVozilaRow = 0;
 
     @FXML
     private VBox PrvihPetVozila;
@@ -64,9 +71,10 @@ public class GUI {
 	        label.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
 	        label.setPrefHeight(40.0);
 	        label.setPrefWidth(40.0);
-			Tooltip tooltip = new Tooltip(v.getName());
-			Tooltip.install(label, tooltip);
+			Tooltip tooltip = new Tooltip();
 			label.setOnMousePressed(event -> {
+				tooltip.setText(v.getMessage());
+				Tooltip.install(label, tooltip);
 				tooltip.show(label,event.getScreenX(), event.getScreenY());
 			});
 			label.setOnMouseReleased(event -> {
@@ -81,9 +89,10 @@ public class GUI {
 	        label.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
 	        label.setPrefHeight(40.0);
 	        label.setPrefWidth(40.0);
-			Tooltip tooltip = new Tooltip(v.getName());
-			Tooltip.install(label, tooltip);
+			Tooltip tooltip = new Tooltip();
 			label.setOnMousePressed(event -> {
+				tooltip.setText(v.getMessage());
+				Tooltip.install(label, tooltip);
 				tooltip.show(label,event.getScreenX(), event.getScreenY());
 			});
 			label.setOnMouseReleased(event -> {
@@ -98,7 +107,10 @@ public class GUI {
 	        label.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
 	        label.setPrefHeight(40.0);
 	        label.setPrefWidth(40.0);
-			Tooltip tooltip = new Tooltip(v.getName()); Tooltip.install(label, tooltip); label.setOnMousePressed(event -> {
+			Tooltip tooltip = new Tooltip();
+			label.setOnMousePressed(event -> {
+				tooltip.setText(v.getMessage());
+				Tooltip.install(label, tooltip);
 				tooltip.show(label,event.getScreenX(), event.getScreenY());
 			});
 			label.setOnMouseReleased(event -> {
@@ -108,7 +120,7 @@ public class GUI {
 		}
 	}
 		
-	public void GUIMoveCarTerminal(int row1, int col1, int row2, int col2) {
+	public void GUIMoveCarTerminal(int row1, int col1, int row2, int col2) { //Prebacuje vozilo sa policijskog na carinski terminal
 		Node nodeToRemove = null;
 		for (Node node : GridTerminali.getChildren()) {
 	        Integer rowIndex = GridPane.getRowIndex(node);
@@ -130,6 +142,8 @@ public class GUI {
 		Label labelToMove = (Label) PrvihPetVozila.getChildren().remove(0);
 		GridTerminali.add(labelToMove,col,row);
 
+
+
 		List<Node> remainingNodes = new ArrayList<>(PrvihPetVozila.getChildren());
 		PrvihPetVozila.getChildren().clear();
 		PrvihPetVozila.getChildren().addAll(remainingNodes);
@@ -143,6 +157,7 @@ public class GUI {
 		}
 
 		if(labelToRemove != null) {
+
 			GridOstalaVozila.getChildren().remove(labelToRemove);
 			PrvihPetVozila.getChildren().add(labelToRemove);
 
@@ -166,7 +181,7 @@ public class GUI {
 		}
 	}
 
-	public void removeFromTerminalGUI(int row, int col) {
+	public void removeFromTerminalGUI(int row, int col, boolean dodajUIzdvojena) {
 		Node labelToRemove = null;
 		for (Node node : GridTerminali.getChildren()) {
 			if(GridPane.getRowIndex(node) == null || GridPane.getColumnIndex(node) == null)
@@ -178,6 +193,25 @@ public class GUI {
 		}
 		if(labelToRemove != null) 
 			GridTerminali.getChildren().remove(labelToRemove);
+		if(dodajUIzdvojena == true)
+			dodajUIzvojenaVozilaGUI(labelToRemove);
+	}
+
+	public void dodajUIzvojenaVozilaGUI(Node labelToAdd) {
+		for(Node node : GridTerminali.getChildren()) {
+			if(GridPane.getRowIndex(node) == null || GridPane.getColumnIndex(node) == null)
+				continue;
+			if(node == labelToAdd)
+				return;
+		}
+			
+		if(izdvojenaVozilaCol != 10)
+			GridIzdvojenaVozila.add(labelToAdd, izdvojenaVozilaCol++, izdvojenaVozilaRow);
+		else {
+			izdvojenaVozilaCol = 0;
+			izdvojenaVozilaRow++;
+			GridIzdvojenaVozila.add(labelToAdd, izdvojenaVozilaCol, izdvojenaVozilaRow);
+		}
 	}
 
 	@FXML

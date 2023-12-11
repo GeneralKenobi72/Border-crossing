@@ -1,22 +1,34 @@
 package net.etfbl.vozila;
+
+import java.io.Serializable;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.Random;
 
-public class Putnik {
-	private String identifikacioniDokument;
+public class Putnik implements Serializable{
+	private String name;
+	private int identifikacioniDokument;
 	private boolean imaNeispravneDokumente;
 
-	public Putnik(String identifikacioniDokument) {
-		this.identifikacioniDokument = identifikacioniDokument;
+	public Putnik(String name) {
+		this.name = name;
 		Random rand = new Random();
+		identifikacioniDokument = rand.nextInt(100000);
 		int percentage = rand.nextInt(99) + 1;
 		imaNeispravneDokumente = false;
 		if(percentage <= 3)
 			imaNeispravneDokumente = true;
 	}
 
-	public String getIdentifikacioniDokument() {
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getIdentifikacioniDokument() {
 		return identifikacioniDokument;
 	}
 
@@ -26,10 +38,6 @@ public class Putnik {
 
 	public void setImaNeispravneDokumente(boolean ima) {
 		imaNeispravneDokumente = ima;
-	}
-
-	public void setIdentifikacioniDokument(String id) {
-		identifikacioniDokument = id;
 	}
 
 	public void kazniOsobu(ObjectOutputStream oos) {
@@ -42,6 +50,14 @@ public class Putnik {
 
 	public void evidentirajOsobu(PrintWriter pw) { // TODO: Mozda interfejs za ovu i prethodnu metodu
 		pw.println(this);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Putnik p = (Putnik) obj;
+		if(identifikacioniDokument == p.getIdentifikacioniDokument() && name.equals(p.getName()) && imaNeispravneDokumente == p.getImaNeispravneDokumente())
+			return true;
+		else return false;
 	}
 
 	@Override

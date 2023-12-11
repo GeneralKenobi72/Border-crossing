@@ -15,14 +15,15 @@ public class Autobus extends Vozilo implements KoristiMaliTerminalInterface {
 		koferi = new ArrayList<>();
 		for(int i=0;i<getBrojPutnika();i++){
 			int percentage = rand.nextInt(99) + 1;
+			Kofer k = null;
 			if(percentage <= 70){
 				percentage = rand.nextInt(99) + 1;
 				boolean imaNedozvoljeneStvari = false;
 				if(percentage <= 10)
 					imaNedozvoljeneStvari = true;
-				Kofer k = new Kofer(getPutnik(i), imaNedozvoljeneStvari);
-				koferi.add(k);
+				k = new Kofer(getPutnik(i), imaNedozvoljeneStvari);
 			}
+			koferi.add(k);
 		}
 	}
 
@@ -35,13 +36,13 @@ public class Autobus extends Vozilo implements KoristiMaliTerminalInterface {
 	}
 
 	@Override
-	void posaljiVoziloNaPolicijskiTerminal(PolicijskiTerminal pt) {
-		pt.obradiVozilo(this);
+	int posaljiVoziloNaPolicijskiTerminal(PolicijskiTerminal pt) {
+		return pt.obradiVozilo(this);
 	}
 
 	@Override
-	void posaljiVoziloNaCarinskiTerminal(CarinskiTerminal ct) {
-		ct.obradiVozilo(this);
+	int posaljiVoziloNaCarinskiTerminal(CarinskiTerminal ct) {
+		return ct.obradiVozilo(this);
 	}
 
 	@Override

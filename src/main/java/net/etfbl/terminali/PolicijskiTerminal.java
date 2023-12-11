@@ -1,36 +1,62 @@
 package net.etfbl.terminali;
 
 import net.etfbl.vozila.*;
+import net.etfbl.projektni.*;
+import java.io.*;
 
 public class PolicijskiTerminal extends Terminal {
 	public PolicijskiTerminal(String name) {
 		super(name);
 	}
+
 	@Override
-	public void obradiVozilo(Kamion v) {
+	public int obradiVozilo(Kamion v) {
+		int brojPutnikaSaNeispravnimDokumentima = 0;
 		try {
-			Thread.sleep(2000);
+			for(int i=0;i<v.getBrojPutnika();i++) {
+				Thread.sleep(500);
+				Putnik putnik = v.getPutnici().get(i);
+				if(obradiPutnika(putnik) == true)
+					brojPutnikaSaNeispravnimDokumentima++;
+			}
 			System.out.println("Obradjen na policijskom terminalu: " + v);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return brojPutnikaSaNeispravnimDokumentima;
 	}
+
 	@Override
-	public void obradiVozilo(LicnoVozilo v) {
+	public int obradiVozilo(LicnoVozilo v) {
+		int brojPutnikaSaNeispravnimDokumentima = 0;
 		try {
-			Thread.sleep(2000);
+			for(int i=0;i<v.getBrojPutnika();i++) {
+				Thread.sleep(500);
+				Putnik putnik = v.getPutnici().get(i);
+				if(obradiPutnika(putnik) == true)
+					brojPutnikaSaNeispravnimDokumentima++;
+			}
 			System.out.println("Obradjen na policijskom terminalu: " + v);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return brojPutnikaSaNeispravnimDokumentima;
 	}
+
 	@Override
-	public void obradiVozilo(Autobus v) {
+	public int obradiVozilo(Autobus v) {
+		int brojPutnikaSaNeispravnimDokumentima = 0;
 		try {
-			Thread.sleep(2000);
+			for(int i=0;i<v.getBrojPutnika();i++) {
+				Thread.sleep(500);
+				Putnik putnik = v.getPutnici().get(i);
+				if (obradiPutnika(putnik) == true) 
+					brojPutnikaSaNeispravnimDokumentima++;
+			}
 			System.out.println("Obradjen na policijskom terminalu: " + v);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return brojPutnikaSaNeispravnimDokumentima;
 	}
 }

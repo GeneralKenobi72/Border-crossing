@@ -1,6 +1,6 @@
 package net.etfbl.projektni;
 
-import java.io.File;
+import java.io.*;
 import java.net.URL;
 import javafx.scene.text.Text;
 import javafx.scene.layout.GridPane;
@@ -18,10 +18,6 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.application.Platform;
-import javafx.scene.paint.Color;
 
 public class Simulacija extends Application{
 	public static final int MAX_BROJ_PUTNIKA_KAMIONA = 3;
@@ -35,19 +31,47 @@ public class Simulacija extends Application{
 	public static PolicijskiTerminal pt3 = new PolicijskiTerminal("pt3");
 
 	public static final ArrayList<Vozilo> red = new ArrayList<>();
-	private static ArrayList<Vozilo> listaVozila = new ArrayList<>();
 
 	public static GUI GuiInstance;
 
+	public static File kaznjeneOsobe = new File("src/main/java/net/etfbl/output", "kaznjene_osobe.ser");
+	public static File tekstualnaDokumentacija = new File("src/main/java/net/etfbl/output", "tekstualna_dokumentacija.txt");
+	public static FileOutputStream fos1;
+	public static FileWriter fw;
+
 	public static void main(String[] args) {
+		createFiles();
 		kreirajRed();
 		launch(args);
 	}
 
 	public static void StartSimulation() {
-		for(int i=listaVozila.size()-1;i>=0;i--){
+		for(int i=red.size()-1;i>=0;i--){
 			Vozilo v = (Vozilo)red.get(i);
 			v.start();
+		}
+	}
+
+	public static void createFiles() { // TODO: uradi bolje
+		File parent1 = kaznjeneOsobe.getParentFile();
+		File parent2 = tekstualnaDokumentacija.getParentFile();
+		try {
+			fos1 = new FileOutputStream(kaznjeneOsobe, false);
+			fos1.close();
+			fw = new FileWriter(tekstualnaDokumentacija, false);
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if(!parent1.exists())
+			parent1.mkdirs();
+		if(!parent2.exists())
+			parent2.mkdirs();
+		try {
+			kaznjeneOsobe.createNewFile();
+			tekstualnaDokumentacija.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -75,7 +99,6 @@ public class Simulacija extends Application{
 		for(Iterator<Object> iter = list.iterator();iter.hasNext();) {
 			Vozilo v = (Vozilo)iter.next();
 			v.setRedVozila(i);
-			listaVozila.add(v);
 			red.add(v);
 			i++;
 		}

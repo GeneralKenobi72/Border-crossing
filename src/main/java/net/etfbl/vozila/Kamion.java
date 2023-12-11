@@ -47,13 +47,13 @@ public class Kamion extends Vozilo implements KoristiVelikiTerminalInterface {
 	}
 
 	@Override
-	void posaljiVoziloNaPolicijskiTerminal(PolicijskiTerminal pt) {
-		pt.obradiVozilo(this);
+	int posaljiVoziloNaPolicijskiTerminal(PolicijskiTerminal pt) {
+		return pt.obradiVozilo(this);
 	}
 
 	@Override
-	void posaljiVoziloNaCarinskiTerminal(CarinskiTerminal ct) {
-		ct.obradiVozilo(this);
+	int posaljiVoziloNaCarinskiTerminal(CarinskiTerminal ct) {
+		return ct.obradiVozilo(this);
 	}
 
 	@Override
