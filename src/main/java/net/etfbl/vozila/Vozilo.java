@@ -24,7 +24,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 		brojPutnika = rand.nextInt(maksimalanBroj) + 1;
 		putnici = new ArrayList<Putnik>();
 		for(int i=0;i<brojPutnika;i++) {
-			Putnik p = new Putnik("P" + (i+1)); //TODO: treba promijeniti
+			Putnik p = new Putnik("P" + (i+1));
 			putnici.add(p);
 		}
 	}

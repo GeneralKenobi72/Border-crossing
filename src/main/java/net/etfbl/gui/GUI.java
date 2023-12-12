@@ -1,6 +1,7 @@
 package net.etfbl.gui;
 
 import java.io.*;
+import javafx.animation.*;
 import javafx.geometry.*;
 import javafx.collections.ObservableList;
 import java.util.List;
@@ -61,6 +62,7 @@ public class GUI {
 		PrvihPetVozila.setAlignment(Pos.CENTER);
 		GridTerminali.setAlignment(Pos.CENTER);
 		GridOstalaVozila.setAlignment(Pos.CENTER);
+
 	}
 
 	public Label createLabel(Vozilo v) {
@@ -220,6 +222,38 @@ public class GUI {
 			buttonStart.setVisible(false);
 		});
 		Simulacija.StartSimulation();
+		new Thread(() -> {
+			while(true) {
+				try {
+					BufferedReader br = new BufferedReader(new FileReader(Simulacija.terminali));
+					String linija = br.readLine();
+					String[] stringovi = linija.split("#");
+					if(stringovi[0].equals("0"))
+						Simulacija.pt1.setRadi(false);
+					else
+						Simulacija.pt1.setRadi(true);
+					if(stringovi[1].equals("0"))
+						Simulacija.pt2.setRadi(false);
+					else
+						Simulacija.pt2.setRadi(true);
+					if(stringovi[2].equals("0"))
+						Simulacija.pt3.setRadi(false);
+					else
+						Simulacija.pt3.setRadi(true);
+					if(stringovi[3].equals("0"))
+						Simulacija.ct1.setRadi(false);
+					else
+						Simulacija.ct1.setRadi(true);
+					if(stringovi[4].equals("0"))
+						Simulacija.ct2.setRadi(false);
+					else
+						Simulacija.ct2.setRadi(true);
+					br.close();
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 	@FXML
     void quitApplication(ActionEvent event) {

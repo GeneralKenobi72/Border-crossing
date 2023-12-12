@@ -36,6 +36,7 @@ public class Simulacija extends Application{
 
 	public static File kaznjeneOsobe = new File("src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "output", "kaznjene_osobe.ser");
 	public static File tekstualnaDokumentacija = new File("src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "output", "tekstualna_dokumentacija.txt");
+	public static File terminali = new File("src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "output", "RadTerminala.txt");
 	public static FileOutputStream fos1;
 	public static FileWriter fw;
 
@@ -55,6 +56,8 @@ public class Simulacija extends Application{
 	public static void createFiles() { // TODO: uradi bolje
 		File parent1 = kaznjeneOsobe.getParentFile();
 		File parent2 = tekstualnaDokumentacija.getParentFile();
+		File parent3 = terminali.getParentFile();
+
 		try {
 			fos1 = new FileOutputStream(kaznjeneOsobe, false);
 			fos1.close();
@@ -67,9 +70,19 @@ public class Simulacija extends Application{
 			parent1.mkdirs();
 		if(!parent2.exists())
 			parent2.mkdirs();
+		if(!parent3.exists())
+			parent3.mkdirs();
 		try {
 			kaznjeneOsobe.createNewFile();
 			tekstualnaDokumentacija.createNewFile();
+			terminali.createNewFile();
+			try {
+				FileWriter fw1 = new FileWriter(terminali);
+				fw1.write("1#1#1#1#1");
+				fw1.close();
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
