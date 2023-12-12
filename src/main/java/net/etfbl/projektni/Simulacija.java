@@ -34,8 +34,8 @@ public class Simulacija extends Application{
 
 	public static GUI GuiInstance;
 
-	public static File kaznjeneOsobe = new File("src/main/java/net/etfbl/output", "kaznjene_osobe.ser");
-	public static File tekstualnaDokumentacija = new File("src/main/java/net/etfbl/output", "tekstualna_dokumentacija.txt");
+	public static File kaznjeneOsobe = new File("src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "output", "kaznjene_osobe.ser");
+	public static File tekstualnaDokumentacija = new File("src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "output", "tekstualna_dokumentacija.txt");
 	public static FileOutputStream fos1;
 	public static FileWriter fw;
 
@@ -108,7 +108,8 @@ public class Simulacija extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(new File("src/main/java/net/etfbl/gui/guiRadnaScena.fxml").toURI().toURL());
+		String pathToFXML = "src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "gui" + File.separator + "guiRadnaScena.fxml";
+		FXMLLoader loader = new FXMLLoader(new File(pathToFXML).toURI().toURL());
 		Parent root = loader.load();
 
 		Scene scene = new Scene(root);

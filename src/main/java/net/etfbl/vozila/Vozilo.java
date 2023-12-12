@@ -149,7 +149,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 				brojPutnikaSaNeispravnimDokumentima = posaljiVoziloNaPolicijskiTerminal(Simulacija.pt3);
 				if(getPutnik(0).getImaNeispravneDokumente()) {
 					Platform.runLater(() -> {
-							Simulacija.GuiInstance.removeFromTerminalGUI(3, 2, true);
+							Simulacija.GuiInstance.removeFromTerminalGUI(3, 6, true);
 					});
 					Simulacija.pt3.setZauzet(false);
 					Simulacija.pt3.sem.release();
