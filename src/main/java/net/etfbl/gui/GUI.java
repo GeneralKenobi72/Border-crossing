@@ -1,9 +1,10 @@
 package net.etfbl.gui;
 
 import java.io.*;
+import java.time.Duration;
+import java.time.Instant;
 import javafx.animation.*;
 import javafx.geometry.*;
-import javafx.collections.ObservableList;
 import java.util.List;
 import java.util.ArrayList;
 import javafx.scene.input.MouseEvent;
@@ -41,7 +42,18 @@ public class GUI {
     @FXML
     private Button buttonStart;
 
+	@FXML
+	private Button PauseButton;
+
+	@FXML 
+	private Label vrijemeLabel;
+
+	private Instant startTime;
+	private Instant pauseStart;
+	private Duration totalPauseTime = Duration.ZERO;
+
 	public void initialize() {
+		vrijemeLabel.setText("0.00");
 		int i=0;
 		for(i=0;i<5;i++) {
 			Label label = createLabel(Simulacija.red.get(i));
@@ -215,12 +227,42 @@ public class GUI {
 			GridIzdvojenaVozila.add(labelToAdd, izdvojenaVozilaCol, izdvojenaVozilaRow);
 		}
 	}
+	@FXML
+	void setPause(MouseEvent event) {
+		if(!Simulacija.pause)
+			pauseStart = Instant.now();
+		else
+			totalPauseTime = totalPauseTime.plus(Duration.between(pauseStart, Instant.now()));
+		Simulacija.pause = !(Simulacija.pause);
+	}
+
+	private void updateElapsedTime() {
+		Instant currentTime = Instant.now();
+
+		if(Simulacija.pause) {
+			return;
+		}
+		Duration duration = Duration.between(startTime, currentTime).minus(totalPauseTime);
+		long minutes = duration.toMinutes();
+		long seconds = duration.minusMinutes(minutes).getSeconds();
+		long millis = duration.toMillis() % 1000;
+		vrijemeLabel.setText(String.format("%02d:%02d:%03d", minutes, seconds, millis));
+	}
 
 	@FXML
 	void MakeInvisible(MouseEvent event) {
 		Platform.runLater( () -> {
 			buttonStart.setVisible(false);
 		});
+		startTime = Instant.now();
+		AnimationTimer timer = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				updateElapsedTime();
+			}
+		};
+		timer.start();
+
 		Simulacija.StartSimulation();
 		new Thread(() -> {
 			while(true) {

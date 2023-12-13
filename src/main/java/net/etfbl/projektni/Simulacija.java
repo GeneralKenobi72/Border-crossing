@@ -1,6 +1,7 @@
 package net.etfbl.projektni;
 
 import java.io.*;
+import java.util.logging.*;
 import java.net.URL;
 import javafx.scene.text.Text;
 import javafx.scene.layout.GridPane;
@@ -40,6 +41,10 @@ public class Simulacija extends Application{
 	public static FileOutputStream fos1;
 	public static FileWriter fw;
 
+	public static boolean pause = false;
+
+	public static Handler handler;
+
 	public static void main(String[] args) {
 		createFiles();
 		kreirajRed();
@@ -50,6 +55,16 @@ public class Simulacija extends Application{
 		for(int i=red.size()-1;i>=0;i--){
 			Vozilo v = (Vozilo)red.get(i);
 			v.start();
+		}
+	}
+
+	static {
+		try {
+			handler = new FileHandler("");
+			Logger.getLogger("").addHandler(handler);
+		}
+		catch(IOException e) {
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 	}
 
@@ -64,7 +79,7 @@ public class Simulacija extends Application{
 			fw = new FileWriter(tekstualnaDokumentacija, false);
 			fw.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		if(!parent1.exists())
 			parent1.mkdirs();
@@ -81,10 +96,10 @@ public class Simulacija extends Application{
 				fw1.write("1#1#1#1#1");
 				fw1.close();
 			} catch(IOException e) {
-				e.printStackTrace();
+				Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 	}
 

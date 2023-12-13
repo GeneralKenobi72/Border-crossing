@@ -75,6 +75,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 		try {
 			sleep(10);
 			while(!Simulacija.red.isEmpty()) {
+				checkPause();
 				if(Simulacija.red.indexOf(this) == 0) {
 					while(!prosaoPolicijskiTerminal)
 						naPolicijskiTerminal();
@@ -93,10 +94,12 @@ public abstract class Vozilo extends Thread implements Serializable{
 				System.out.println("Vozilo " + getRedVozila() + " Pristupilo policijskom terminalu: pt1");
 				Simulacija.pt1.setZauzet(true);
 				Simulacija.red.remove(this);
+				checkPause();
 				Platform.runLater(() -> {
 					Simulacija.GuiInstance.updateVBoxAfterCarMove(3,2);
 				});
 				brojPutnikaSaNeispravnimDokumentima = posaljiVoziloNaPolicijskiTerminal(Simulacija.pt1);
+				checkPause();
 				if(getPutnik(0).getImaNeispravneDokumente()) {
 					Platform.runLater(() -> {
 							Simulacija.GuiInstance.removeFromTerminalGUI(3, 2, true);
@@ -118,9 +121,11 @@ public abstract class Vozilo extends Thread implements Serializable{
 				System.out.println("Vozilo " + getRedVozila() + " Pristupilo policijskom terminalu: pt2");
 				Simulacija.pt2.setZauzet(true);
 				Simulacija.red.remove(this);
+				checkPause();
 				Platform.runLater(() -> {
 					Simulacija.GuiInstance.updateVBoxAfterCarMove(3,4);
 				});
+				checkPause();
 				brojPutnikaSaNeispravnimDokumentima = posaljiVoziloNaPolicijskiTerminal(Simulacija.pt2);
 				if(getPutnik(0).getImaNeispravneDokumente()) {
 					Platform.runLater(() -> {
@@ -143,10 +148,12 @@ public abstract class Vozilo extends Thread implements Serializable{
 				System.out.println("Vozilo " + getRedVozila() + " Pristupilo policijskom terminalu: pt3");
 				Simulacija.pt3.setZauzet(true);
 				Simulacija.red.remove(this);
+				checkPause();
 				Platform.runLater(() -> {
 					Simulacija.GuiInstance.updateVBoxAfterCarMove(3,6);
 				});
 				brojPutnikaSaNeispravnimDokumentima = posaljiVoziloNaPolicijskiTerminal(Simulacija.pt3);
+				checkPause();
 				if(getPutnik(0).getImaNeispravneDokumente()) {
 					Platform.runLater(() -> {
 							Simulacija.GuiInstance.removeFromTerminalGUI(3, 6, true);
@@ -172,6 +179,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 				Simulacija.ct1.setZauzet(true);
 				pt.setZauzet(false);
 				pt.sem.release();
+				checkPause();
 				Platform.runLater(() -> {
 					if(pt == Simulacija.pt1)
 						Simulacija.GuiInstance.GUIMoveCarTerminal(3,2,1,2);
@@ -182,6 +190,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 				Simulacija.ct1.sem.release();
 				Simulacija.ct1.setZauzet(false);
 				prosaoCarinskiTerminal = true;
+				checkPause();
 				Platform.runLater(() -> {
 					Simulacija.GuiInstance.removeFromTerminalGUI(1,2, brojPutnikaSaNeispravnimDokumentima > 0 || carinaPOM > 0);
 				});
@@ -195,6 +204,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 				Simulacija.ct2.setZauzet(true);
 				pt.setZauzet(false);
 				pt.sem.release();
+				checkPause();
 				Platform.runLater(() -> {
 					Simulacija.GuiInstance.GUIMoveCarTerminal(3,6,1,6);
 				});
@@ -202,6 +212,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 				Simulacija.ct2.sem.release();
 				Simulacija.ct2.setZauzet(false);
 				prosaoCarinskiTerminal = true;
+				checkPause();
 				Platform.runLater(() -> {
 					Simulacija.GuiInstance.removeFromTerminalGUI(1, 6, brojPutnikaSaNeispravnimDokumentima > 0 || carinaPOM > 0);
 				});
@@ -260,6 +271,16 @@ public abstract class Vozilo extends Thread implements Serializable{
 			e.printStackTrace();
 		}
 		return ret;
+	}
+
+	public static void checkPause() {
+		while(Simulacija.pause) {
+			try {
+				sleep(10);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	abstract int posaljiVoziloNaCarinskiTerminal(CarinskiTerminal ct);

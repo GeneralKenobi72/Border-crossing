@@ -14,6 +14,7 @@ public class CarinskiTerminal extends Terminal {
 	@Override
 	public int obradiVozilo(Kamion v) {
 		try {
+			Vozilo.checkPause();
 			Thread.sleep(200);
 			if((v.getPotrebnaCarinskaDokumentacija() == true) && (v.getStvarnaMasaTereta() != v.getDeklarisanaMasaTereta())) {
 				try {
@@ -38,6 +39,7 @@ public class CarinskiTerminal extends Terminal {
 		try {
 			for(int i=0;i<v.getBrojPutnika();i++) {
 				Thread.sleep(100);
+				Vozilo.checkPause();
 				Kofer k = v.getKofer(i);
 				if(k != null && k.getImaNedozvoljeneStvari()) {
 					try {
@@ -59,7 +61,9 @@ public class CarinskiTerminal extends Terminal {
 	@Override
 	public int obradiVozilo(LicnoVozilo v) {
 		try {
+			Vozilo.checkPause();
 			Thread.sleep(2000);
+			Vozilo.checkPause();
 			System.out.println("Obradjen na carinskom terminalu: " + v);
 		} catch (Exception e) {
 			e.printStackTrace();

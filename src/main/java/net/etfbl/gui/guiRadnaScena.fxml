@@ -102,7 +102,9 @@
                               <Insets bottom="3.0" top="3.0" />
                            </padding>
                         </GridPane>
-                        <Button fx:id="buttonStart" layoutX="22.0" layoutY="364.0" mnemonicParsing="false" onMouseClicked="#MakeInvisible" text="Start Simulation" />
+                        <Button fx:id="buttonStart" layoutX="22.0" layoutY="364.0" mnemonicParsing="false" onMouseClicked="#MakeInvisible" text="Pokreni simulaciju" />
+                        <Button fx:id="PauseButton" layoutX="22.0" layoutY="330.0" mnemonicParsing="false" onMouseClicked="#setPause" text="Pauziraj" />
+                        <Label fx:id="vrijemeLabel" layoutX="101.0" layoutY="334.0" text="00:00:000" />
                      </children>
                   </AnchorPane>
             </content>

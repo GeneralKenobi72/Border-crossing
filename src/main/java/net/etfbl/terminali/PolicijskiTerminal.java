@@ -14,6 +14,7 @@ public class PolicijskiTerminal extends Terminal {
 		int brojPutnikaSaNeispravnimDokumentima = 0;
 		try {
 			for(int i=0;i<v.getBrojPutnika();i++) {
+				Vozilo.checkPause();
 				Thread.sleep(500);
 				Putnik putnik = v.getPutnici().get(i);
 				if(obradiPutnika(putnik) == true)
@@ -32,6 +33,7 @@ public class PolicijskiTerminal extends Terminal {
 		try {
 			for(int i=0;i<v.getBrojPutnika();i++) {
 				Thread.sleep(500);
+				Vozilo.checkPause();
 				Putnik putnik = v.getPutnici().get(i);
 				if(obradiPutnika(putnik) == true)
 					brojPutnikaSaNeispravnimDokumentima++;
@@ -49,6 +51,7 @@ public class PolicijskiTerminal extends Terminal {
 		try {
 			for(int i=0;i<v.getBrojPutnika();i++) {
 				Thread.sleep(500);
+				Vozilo.checkPause();
 				Putnik putnik = v.getPutnici().get(i);
 				if (obradiPutnika(putnik) == true) 
 					brojPutnikaSaNeispravnimDokumentima++;
