@@ -1,5 +1,6 @@
 package net.etfbl.vozila;
 
+import java.util.logging.*;
 import java.io.*;
 import net.etfbl.gui.*;
 import javafx.application.Platform;
@@ -80,11 +81,12 @@ public abstract class Vozilo extends Thread implements Serializable{
 					while(!prosaoPolicijskiTerminal)
 						naPolicijskiTerminal();
 					System.out.println("Zavrsen " + this);
+					Simulacija.brojZavrsenihVozila++;
 					return;
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 	}
 
@@ -113,7 +115,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 				}
 				prosaoPolicijskiTerminal = true;
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 		}
 		else if(this instanceof KoristiMaliTerminalInterface && !Simulacija.pt2.getZauzet() && Simulacija.pt2.getRadi() && Simulacija.pt2.sem.tryAcquire()) {
@@ -140,7 +142,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 				}
 				prosaoPolicijskiTerminal = true;
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 		}
 		else if(this instanceof KoristiVelikiTerminalInterface && !Simulacija.pt3.getZauzet() && Simulacija.pt3.getRadi() && Simulacija.pt3.sem.tryAcquire()) {
@@ -167,7 +169,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 				}
 				prosaoPolicijskiTerminal = true;
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			} 
 		}
 	}
@@ -195,7 +197,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 					Simulacija.GuiInstance.removeFromTerminalGUI(1,2, brojPutnikaSaNeispravnimDokumentima > 0 || carinaPOM > 0);
 				});
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			} 
 		}
 		else if(this instanceof KoristiVelikiTerminalInterface && !Simulacija.ct2.getZauzet() && Simulacija.ct2.getRadi() && Simulacija.ct2.sem.tryAcquire()) {
@@ -217,7 +219,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 					Simulacija.GuiInstance.removeFromTerminalGUI(1, 6, brojPutnikaSaNeispravnimDokumentima > 0 || carinaPOM > 0);
 				});
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			} 
 		}
 	}
@@ -246,7 +248,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 			}
 			br.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		try {
 			if(Simulacija.kaznjeneOsobe.length() == 0)
@@ -268,7 +270,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 			}
 			ois.close();
 		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		return ret;
 	}
@@ -278,7 +280,7 @@ public abstract class Vozilo extends Thread implements Serializable{
 			try {
 				sleep(10);
 			} catch(Exception e) {
-				e.printStackTrace();
+				Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 		}
 	}

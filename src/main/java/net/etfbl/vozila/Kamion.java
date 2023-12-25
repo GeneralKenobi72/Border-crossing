@@ -1,5 +1,6 @@
 package net.etfbl.vozila;
 
+import java.util.logging.*;
 import net.etfbl.terminali.*;
 import net.etfbl.projektni.*;
 import java.util.Random;

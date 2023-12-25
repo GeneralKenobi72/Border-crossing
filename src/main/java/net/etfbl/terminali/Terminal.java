@@ -1,5 +1,6 @@
 package net.etfbl.terminali;
 
+import java.util.logging.*;
 import java.io.*;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.ReentrantLock;
@@ -63,7 +64,7 @@ public abstract class Terminal {
 				}
 
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 		}
 		return izbaci;

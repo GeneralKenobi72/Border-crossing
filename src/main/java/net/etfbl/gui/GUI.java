@@ -1,5 +1,6 @@
 package net.etfbl.gui;
 
+import java.util.logging.*;
 import java.io.*;
 import java.time.Duration;
 import java.time.Instant;
@@ -54,6 +55,7 @@ public class GUI {
 
 	public void initialize() {
 		vrijemeLabel.setText("0.00");
+		PauseButton.setStyle("-fx-text-fill: green;");
 		int i=0;
 		for(i=0;i<5;i++) {
 			Label label = createLabel(Simulacija.red.get(i));
@@ -156,8 +158,6 @@ public class GUI {
 		Label labelToMove = (Label) PrvihPetVozila.getChildren().remove(0);
 		GridTerminali.add(labelToMove,col,row);
 
-
-
 		List<Node> remainingNodes = new ArrayList<>(PrvihPetVozila.getChildren());
 		PrvihPetVozila.getChildren().clear();
 		PrvihPetVozila.getChildren().addAll(remainingNodes);
@@ -229,17 +229,22 @@ public class GUI {
 	}
 	@FXML
 	void setPause(MouseEvent event) {
-		if(!Simulacija.pause)
+		if(!Simulacija.pause) {
 			pauseStart = Instant.now();
-		else
+			PauseButton.setStyle("-fx-text-fill: red;");
+		}
+		else {
 			totalPauseTime = totalPauseTime.plus(Duration.between(pauseStart, Instant.now()));
+			PauseButton.setStyle("-fx-text-fill: green;");
+		}
+
 		Simulacija.pause = !(Simulacija.pause);
 	}
 
 	private void updateElapsedTime() {
 		Instant currentTime = Instant.now();
 
-		if(Simulacija.pause) {
+		if(Simulacija.pause || Simulacija.brojZavrsenihVozila == 50) {
 			return;
 		}
 		Duration duration = Duration.between(startTime, currentTime).minus(totalPauseTime);
@@ -292,7 +297,7 @@ public class GUI {
 						Simulacija.ct2.setRadi(true);
 					br.close();
 				} catch(IOException e) {
-					e.printStackTrace();
+					Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 				}
 			}
 		}).start();

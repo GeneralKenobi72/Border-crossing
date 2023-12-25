@@ -1,5 +1,6 @@
 package net.etfbl.terminali;
 
+import java.util.logging.*;
 import net.etfbl.vozila.*;
 import net.etfbl.projektni.*;
 import java.io.*;
@@ -22,7 +23,7 @@ public class PolicijskiTerminal extends Terminal {
 			}
 			System.out.println("Obradjen na policijskom terminalu: " + v);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		return brojPutnikaSaNeispravnimDokumentima;
 	}
@@ -40,7 +41,7 @@ public class PolicijskiTerminal extends Terminal {
 			}
 			System.out.println("Obradjen na policijskom terminalu: " + v);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		return brojPutnikaSaNeispravnimDokumentima;
 	}
@@ -58,7 +59,7 @@ public class PolicijskiTerminal extends Terminal {
 			}
 			System.out.println("Obradjen na policijskom terminalu: " + v);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		return brojPutnikaSaNeispravnimDokumentima;
 	}

@@ -1,5 +1,6 @@
 package net.etfbl.vozila;
 
+import java.util.logging.*;
 import java.io.Serializable;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
@@ -44,7 +45,7 @@ public class Putnik implements Serializable{
 		try {
 			oos.writeObject(this);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 	}
 

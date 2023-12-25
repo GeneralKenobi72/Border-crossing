@@ -1,5 +1,6 @@
 package net.etfbl.terminali;
 
+import java.util.logging.*;
 import java.io.*;
 import javafx.application.Platform;
 import javafx.scene.*;
@@ -22,14 +23,14 @@ public class CarinskiTerminal extends Terminal {
 					fw.write("#" + v.getName());
 					fw.close();
 				} catch(IOException e) {
-					e.printStackTrace();
+					Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 				}
 				System.out.println("Obradjen na carinskom terminalu: " + v);
 				return v.getStvarnaMasaTereta() - v.getDeklarisanaMasaTereta();
 			}
 			System.out.println("Obradjen na carinskom terminalu: " + v);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		return 0;
 	}
@@ -48,13 +49,13 @@ public class CarinskiTerminal extends Terminal {
 						fw.write("#" + v.getName() + "-" + k.getPripadaPutniku().getName());
 						fw.close();
 					} catch (IOException e) {
-						e.printStackTrace();
+						Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 					}
 				}
 			}
 			System.out.println("Obradjen na carinskom terminalu: " + v);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		return brojIzbacenih;
 	}
@@ -66,7 +67,7 @@ public class CarinskiTerminal extends Terminal {
 			Vozilo.checkPause();
 			System.out.println("Obradjen na carinskom terminalu: " + v);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getLogger(Simulacija.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		return 0;
 	}

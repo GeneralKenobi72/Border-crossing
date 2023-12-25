@@ -1,5 +1,6 @@
 package net.etfbl.vozila;
 
+import java.util.logging.*;
 import net.etfbl.projektni.*;
 import net.etfbl.terminali.*;
 import java.util.ArrayList;

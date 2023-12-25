@@ -36,12 +36,14 @@ public class Simulacija extends Application{
 	public static GUI GuiInstance;
 
 	public static File kaznjeneOsobe = new File("src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "output", "kaznjene_osobe.ser");
-	public static File tekstualnaDokumentacija = new File("src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "output", "tekstualna_dokumentacija.txt");
-	public static File terminali = new File("src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "output", "RadTerminala.txt");
+	public static File tekstualnaDokumentacija = new File("src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "output" + File.separator + "tekstualna_dokumentacija.txt");
+	public static File terminali = new File("src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "output" + File.separator + "RadTerminala.txt");
 	public static FileOutputStream fos1;
 	public static FileWriter fw;
 
 	public static boolean pause = false;
+	public static boolean krajSimulacije = false;
+	public static int brojZavrsenihVozila = 0;
 
 	public static Handler handler;
 
@@ -60,7 +62,7 @@ public class Simulacija extends Application{
 
 	static {
 		try {
-			handler = new FileHandler("");
+			handler = new FileHandler(("src" + File.separator + "main" + File.separator + "java" + File.separator + "net" + File.separator + "etfbl" + File.separator + "output" + File.separator + "logger.log"));
 			Logger.getLogger("").addHandler(handler);
 		}
 		catch(IOException e) {
