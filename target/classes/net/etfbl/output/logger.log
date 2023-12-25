@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-12-13T14:35:46.526714522Z</date>
-  <millis>1702478146526</millis>
-  <nanos>714522</nanos>
+  <date>2023-12-25T16:10:13.312294457Z</date>
+  <millis>1703520613312</millis>
+  <nanos>294457</nanos>
   <sequence>0</sequence>
   <logger>javafx</logger>
   <level>WARNING</level>
@@ -14,9 +14,9 @@
   <message>Unsupported JavaFX configuration: classes were loaded from 'unnamed module @7a903aee'</message>
 </record>
 <record>
-  <date>2023-12-13T14:35:47.030010834Z</date>
-  <millis>1702478147030</millis>
-  <nanos>10834</nanos>
+  <date>2023-12-25T16:10:13.704990615Z</date>
+  <millis>1703520613704</millis>
+  <nanos>990615</nanos>
   <sequence>1</sequence>
   <logger>javafx</logger>
   <level>WARNING</level>
