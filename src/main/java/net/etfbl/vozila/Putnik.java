@@ -1,6 +1,7 @@
 package net.etfbl.vozila;
 
 import java.util.logging.*;
+import net.etfbl.projektni.*;
 import java.io.Serializable;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;

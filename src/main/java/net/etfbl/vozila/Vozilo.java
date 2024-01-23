@@ -3,6 +3,7 @@ package net.etfbl.vozila;
 import java.util.logging.*;
 import java.io.*;
 import net.etfbl.gui.*;
+import net.etfbl.projektni.*;
 import javafx.application.Platform;
 import net.etfbl.projektni.*;
 import net.etfbl.terminali.*;

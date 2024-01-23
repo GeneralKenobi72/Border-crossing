@@ -2,3 +2,5 @@
 *.ser
 *.txt
 *.class
+/**/target/*
+!RadTerminala.txt
